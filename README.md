@@ -49,7 +49,7 @@ My favorite IDE for this kind of project is [Visual Studio Code](https://code.vi
 
 Skill | When to Use
 :---:|:---
-Dates Extractor | Extracts dates from string. Differentiates itself from the [Entity Extraction built-in skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-entity-recognition) by generating dates in yyyy-mm-dd HH:MM:SS format. 
+[Dates Extractor](./code/dates-extractor.md) | Extracts dates from string. Differentiates itself from the [Entity Extraction built-in skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-entity-recognition) by generating dates in yyyy-mm-dd HH:MM:SS format. 
 [Strings Merger](./code/strings-merger.md) | Merges 2 strings. Differentiates itself from the [Text Merger built-in skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-textmerger) by allowing you to merge any 2 strings, not only the content with the OCR text extracted from images.
 [Strings Cleaner](./code/strings-cleaner.md) | Removes special characters from strings, returning a string clean of those values.
 CSV Filtering | Removes the csv file values from the input, returning a string clean of those values.
