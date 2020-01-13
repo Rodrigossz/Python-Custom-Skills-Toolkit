@@ -45,19 +45,6 @@ My favorite IDE for this kind of project is [Visual Studio Code](https://code.vi
 + [Great  Tutorial](https://code.visualstudio.com/docs/languages/python)
 + [Locally integrated features: Dvelopment, tests, and deployment to Azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code)
 
-## Code - The Skills
-
-Skill | When to Use
-:---:|:---
-[Dates Extractor](./code/dates-extractor.md) | Extracts dates from string. Differentiates itself from the [Entity Extraction built-in skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-entity-recognition) by generating dates in yyyy-mm-dd HH:MM:SS format. 
-[Strings Merger](./code/strings-merger.md) | Merges 2 strings. Differentiates itself from the [Text Merger built-in skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-textmerger) by allowing you to merge any 2 strings, not only the content with the OCR text extracted from images.
-[Strings Cleaner](./code/strings-cleaner.md) | Removes special characters from strings, returning a string clean of those values.
-CSV Filtering | Removes the csv file values from the input, returning a string clean of those values.
-CSV Lookup | Extracts the csv file values that were found in the input string, returning an array of strings.
-
-## C# Custom Skills from the Azure Cognitive Search Product Team 
-I work for [Microsoft AI Customer Engineering Team](ka.ms/ace-blog). For "official" Azure Search click-to-deploy C# Custom skills, created by the Azure Cognitive Search Team, use the [Azure Search Power Skills repo](https://github.com/Azure-Samples/azure-search-power-skills).
-
 ## Best Practices
 
 Here is a list of good practices from our experience when creating this solution for a client:
@@ -67,7 +54,20 @@ Here is a list of good practices from our experience when creating this solution
 + Save time debugging locally, I suggest VS Code or Postman for the job. You just need to save the new version of your python code and the changes are effective immediately, restart is not required. 
 + In your code, use json.dumps on your output variable to validate what your skill returns to Cognitive Search. This will give you the opportunity to fix the layout in case of error.
 + For performance, prepare your code to process multiples documents in each execution, allowing you to use a batch sizes bigger than 1. Please check the loops within the provided sample code.
-+ For production enviroments, check and if necessary change the code to be compliant with [Azure Functions Best Practices](https://docs.microsoft.com/en-us/azure/azure-functions/functions-best-practices).
++ For production enviroments, change the code to be compliant with [Azure Functions Best Practices](https://docs.microsoft.com/en-us/azure/azure-functions/functions-best-practices) and with your security requirements.
+
+## Code - The Skills
+
+Skill | When to Use
+:---:|:---
+[Dates Extractor](./code/dates-extractor.md) | Extracts dates from string. Differentiates itself from the [Entity Extraction built-in skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-entity-recognition) by generating dates in yyyy-mm-dd HH:MM:SS format. 
+[Strings Merger](./code/strings-merger.md) | Merges 2 strings. Differentiates itself from the [Text Merger built-in skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-textmerger) by allowing you to merge any 2 strings, not only the content with the OCR text extracted from images.
+[Strings Cleaner](./code/strings-cleaner.md) | Removes special characters from strings, returning a string clean of those values.
+[CSV Filter](./code/csv-filter.md) | Removes the csv file values from the input, returning a string clean of those values.
+[CSV Lookup](./code/csv-lookup.md) | Extracts the csv file values that were found in the input string, returning an array of strings.
+
+## C# Custom Skills from the Azure Cognitive Search Product Team 
+For "official" Azure Search click-to-deploy C# Custom skills, created by the Azure Cognitive Search Team, use the [Azure Search Power Skills repo](https://github.com/Azure-Samples/azure-search-power-skills).
 
 ## Licensing and Collaboration
 This code is 100% open source. Use it as you want.
@@ -75,7 +75,7 @@ This code is 100% open source. Use it as you want.
 I invite you to contribute your own work by submitting a pull request.
 
 ## About Me
-My name is Rodrigo Souza and I work for Microsoft since 2017. For now my roles within the company were Data Solutions Architect, AI Instructor, and Applied Data Scientist. Some key links about me:
+My name is Rodrigo Souza and I work for Microsoft since 2017. For now my roles within the company were Data Solutions Architect, AI Instructor, and Applied Data Scientist. Nowadays I'm a Sr Data Scientist with [ACE Team](http://aka.ms/ACE-Blog). It is the AI Customer Engineering team, giving me the opportunity to work in intersting AI projects. Some key links about me:
 
 + [My LinkedIn](https://www.linkedin.com/in/rodrigossz/)
 + [My Visual CV](https://github.com/Rodrigossz/CV)

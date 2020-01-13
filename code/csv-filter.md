@@ -1,12 +1,12 @@
-# Azure Cognitive Search Python Custom Skill For Dates Extraction
+# Azure Cognitive Search Python Custom Skill For CSV Filtering
 
-This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure Functions for Python. It extracts the first date from the input string. If you need all of the dates, or the time, change the code as you need.
+This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure Functions for Python. It removes all terms of a csv file that exists in the input string. The input string is returned without the terms to be filtered. There must be one term per line in the csv file. And the csv file must have only one column.
 
 ## Required steps
 
 1. Follow [this](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-python) tutorial.
 1. Use the Python code below as your **__init__.py** file. Customize it with your storage account details, also with your csv file name and target column. As you can see below, my sample csv file target column name is **Term**. That helps the idea that this code will extract pre-defined terms from the documents content.
-1. Don't forget to add **azure.functions** and **datefinder** to your requirements.txt file.
+1. Don't forget to add **azure.functions** to your requirements.txt file.
 1. Connect your published custom skill to your Cognitive Search Enrichment Pipeline. Plesae check the section below the code in this file. For more information, click [here](https://docs.microsoft.com/en-us/azure/search/cognitive-search-create-custom-skill-example#connect-to-your-pipeline).
 
 ## Python Code
@@ -21,20 +21,20 @@ This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure F
 
 #
 # Specific comments
-# The output format is YYYY-MM-DD. Time is removed!!
-# This code uses the datefinder library. Characteristics:
-# 1) If the year is detected without month or day, it will be returned with today's month and day.
-# 2) If month and date are detected without year, it will return the date with today's year.
-# 3) The datafinder library will deal with empty stings and we will handle the outpout format
-# For more details about datefinder: https://datefinder.readthedocs.io/en/latest/
+# There must be one term per line in the csv file. 
+# And the csv file must have only one column.
+# In other words, it is a csv file without any column in it. Any column will be considerated part of the ter.
+# This code opens the orgs.csv file in the same folder of the __init__.py file.
+# File name is always terms.csv . If you want another name, chage it below.
+# All data from both sources, input and csv, are converted to lower case for the strings comparison. Orinal case is returned.
+# The input string is returned, without the the filtered terms.
 
 import logging
 import azure.functions as func
-import re
-import datefinder
+import csv
 import json
-import datetime
-import unicode
+import re
+import os
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
@@ -54,67 +54,63 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
 
 def run(json_data):
-    
+
+  # Get reference data - csv file 
+  # Any plafform, any OS
+  __location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+  myFile=os.path.join(__location__, 'terms.csv')
+  myFile=os.path.normpath(myFile)
+
+  with open (myFile,'r', encoding='latin-1') as csvList:
+    myList = list(csv.reader(csvList))
+
+    # Get the input data
     values = json.loads(json_data)['values']
-    
-    # Prepare the Output before the loop
+
+    # Preparing output
     results = {}
     results["values"] = []
-
+            
+    # Process row by row
+  
     for value in values:
-      # Getting the document text (content + OCR(?) + any other text been analyzed within your enrichment pipeline)
-      
-      try:
-        myString = value['data']['text']
-      except ValueError:
-        pass
+      recordId = value['recordId']
+      text = value['data']['text']
 
-      if myString:
-        # Converting to String and Removing Special Characters. The datefinder lib doesn't work very well with them .
-        # Also removing accents
-        myString=str(myString)
-        myString = re.sub(r'\t',' ',myString)
-        myString = re.sub(r'\n',' ',myString)
-        myString = re.sub(r'  ',' ',myString)
-        myString = unicode.unidecode(myString)
-
-        # Getting the dates into an empty Generator
-        matches = datefinder.find_dates(myString)
-
-        #First Date only!!!! Change the code if you want all of them.
-        for match in matches:
-          myDate = match
-          # Convert to string
-          myDateString = str(myDate)
-          break
-
-        # Removing time!!! Change the code if you want it.
-        if len(myDateString) > 1:
-          myDateString = myDateString[0:10]
-        else:
-          myDateString = ''
-
-        # Output
-        recordId = value['recordId']
-        results["values"].append(
+      for term in myList:
+          #Convert to string 
+          myStr=str(term[0])
+          if text.lower().find(myStr.lower()) >= 0:
+            #remove the terms
+            text= re.sub(myStr, '', text)
+      results["values"].append(
               {
               "recordId": recordId,
               "data": {
-                  "text": myDateString
+                  "text": outputStr
                       }
               })
                     
     return json.dumps(results)
 ```
+
 ## Add this skill to your Cogntive Search Enrichment Pipeline
 
-Your skillset will have this extra section below.
+Let's say that your terms are some countrires of the word. You CSV will have the structure below:
+
+Brazil
+Argentina
+Canadá
+United States
+
+One country and one column per line, no commas. You skillset will have something like:
 
 ```json
  {
             "@odata.type": "#Microsoft.Skills.Custom.WebApiSkill",
-            "name": "First Date",
-            "description": "Get the first date detected in a string",
+            "name": "csv-filter",
+            "description": "REMOVE the Countries I Don't care about",
             "context": "/document",
             "uri": "your-Pyhton-Azure-Functions-published-URL",
             "httpMethod": "POST",
@@ -130,7 +126,7 @@ Your skillset will have this extra section below.
         "outputs": [
           {
             "name": "text",
-            "targetName": "date"
+            "targetName": "filteredText"
           }
             ],
             "httpHeaders": {}
@@ -148,14 +144,14 @@ One string has 2 dates, the second one has only the year.
         "recordId": "0",
         "data":
            {
-             "text": "On November 5th 2017 I was hired by Microsoft. Today is 1/13/2020 and I am still working for the company"
+             "text": "Brazil is bigger than the US if you don't count on Alaska. Argentina is not that big."
            }
       },
       {
         "recordId": "1",
         "data":
            {
-             "text": "I was born in 1974"
+             "text": "I live in the United States of America"
            }
       },      
       
@@ -165,7 +161,7 @@ One string has 2 dates, the second one has only the year.
 
 ## Sample Output
 
-From the first string, one date is returned. From the second, there is no month or day, so today's info is used.
+From the first string, two countries are returned. US is not one of the lines of the file. Only exact matches are returned. 
 
 ```json
 {
@@ -173,13 +169,13 @@ From the first string, one date is returned. From the second, there is no month 
         {
             "recordId": "0",
             "data": {
-                "text": "2017-11-05"
+                "text": "is bigger than the US if you don't count on Alaska. is not that big."
             }
         },
         {
             "recordId": "1",
             "data": {
-                "text": "1974-01-13"
+                "text": "I live in the of America"
             }
         }
     ]
