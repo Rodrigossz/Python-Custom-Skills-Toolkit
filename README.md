@@ -75,7 +75,7 @@ This code is 100% open source. Use it as you want.
 I invite you to contribute your own work by submitting a pull request.
 
 ## About Me
-My name is Rodrigo Souza and I work for Microsoft since 2017. For now my roles within the company were Data Solutions Architect, AI Instructor, and Applied Data Scientist. Nowadays I'm a Sr Data Scientist with [ACE Team](http://aka.ms/ACE-Blog). It is the AI Customer Engineering team, giving me the opportunity to work in intersting AI projects. Some key links about me:
+My name is Rodrigo Souza and I work for Microsoft since 2017. For now my roles within the company were Data Solutions Architect, AI Instructor, and Applied Data Scientist. Nowadays I'm a Sr Data Scientist with [ACE Team](http://aka.ms/ACE-Blog). It is the AI Customer Engineering team, where I have the opportunity to work in intersting AI projects. Some key links about me:
 
 + [My LinkedIn](https://www.linkedin.com/in/rodrigossz/)
 + [My Visual CV](https://github.com/Rodrigossz/CV)
