@@ -62,9 +62,7 @@ I work for [Microsoft AI Customer Engineering Team](ka.ms/ace-blog). For "offici
 
 Here is a list of good practices from our experience when creating this solution for a client:
 
-+ Special Characters Removal will help the [Text Analytics API](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/overview) to find key phrases, organizations, etc.
-+ If your files have non english characters in their names, change the code to process it correctly. **Actual version will remove those letters**.
-+ When possible, leverage global cached data for the reference data. It is not guaranteed that the state of your app will be preserved for future executions. However, the Azure Functions runtime often reuses the same process for multiple executions of the same app. In order to cache the results of an expensive computation, declare it as a global variable. 
++ When possible, leverage [global variables](https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-python#global-variables) for the reference data. It is not guaranteed that the state of your app will be preserved for future executions. However, the Azure Functions runtime often reuses the same process for multiple executions of the same app. In order to cache the results of an expensive computation, declare it as a global variable. 
 + Always prepare your code to deal with empty result sets, the filter will remove unwanted terms, nothing is replaced.
 + Save time debugging locally, I suggest VS Code or Postman for the job. You just need to save the new version of your python code and the changes are effective immediately, restart is not required. 
 + In your code, use json.dumps on your output variable to validate what your skill returns to Cognitive Search. This will give you the opportunity to fix the layout in case of error.

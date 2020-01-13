@@ -19,13 +19,12 @@ Until January 2020, you can't do this merge usint the Built In Merge Skill since
 # - This code is an Azure Cognitive Search Python Custom Skill.
 # - The output is the "text" element within the "data" section of the json file.
 # - For production environments add all best practices, logging, and error management that you need.
-# - Letters cases are not changed. But if it is important for you, you can change the code as necessary.
+# - Letters cases are not changed.
 
 #
 # Specific comments
 # This code concatenates 2 strings. 
 # I Use white spaces to don't concatenatr words without a separation.
-# Special characters will be removed, including accentuation.
 
 import logging
 import azure.functions as func
@@ -56,9 +55,6 @@ def run(json_data):
     results["values"] = []
 
     for value in values:
-         # Special Characters Removal
-        string1 = re.sub('[^A-Za-z0-9]+', ' ',value['data']['string1']) 
-        string2 = re.sub('[^A-Za-z0-9]+', ' ',value['data']['string2'])
         
         # Testing for empty strings - Customize as you want. Returning white spaces
         if (not string1):
@@ -67,6 +63,7 @@ def run(json_data):
         if (not string2):
             string2 = ' '
        
+        # merging, with white spaces addiction
         mergedStrings = " "+ string1 + " "+ string2 + " "
         recordId = value['recordId']
         results["values"].append(
