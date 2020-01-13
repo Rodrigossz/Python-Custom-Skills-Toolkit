@@ -22,6 +22,10 @@ This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure F
 #
 # Specific comments
 # This code removes special characters like \t and \n from strings
+# Accents are not removed. To do it, you need to:
+#   import unicode
+#   unaccented_string = unidecode.unidecode(accented_string)
+
 
 import logging
 import azure.functions as func
@@ -74,8 +78,8 @@ def run(json_data):
                 "text": myString
                     }
             })
-                    
-    return json.dumps(results)
+    # We need to make ascii = False to keep accents               
+    return json.dumps(results,ensure_ascii=False))
 ```
 ## Add this skill to your Cogntive Search Enrichment Pipeline
 
@@ -110,6 +114,8 @@ Your skillset will have this extra section below.
 
 ## Sample Input
 
+One string has special characters, the other one has accents.
+
 ```json
 {
     "values": [
@@ -119,13 +125,22 @@ Your skillset will have this extra section below.
            {
              "text": "\t\n\tUnited Nations\n\t\n\t"
            }
-      }
+      },
+      {
+        "recordId": "1",
+        "data":
+           {
+             "text": "Nação Rubro Negra"
+           }
+      },      
       
     ]
 }
 ```
 
 ## Sample Output
+
+In the first string, special characters are removed. Nothing happens with the second string.
 
 ```json
 {
@@ -134,6 +149,12 @@ Your skillset will have this extra section below.
             "recordId": "0",
             "data": {
                 "text": "United Nations"
+            }
+        },
+        {
+            "recordId": "1",
+            "data": {
+                "text": "Nação Rubro Negra"
             }
         }
     ]
