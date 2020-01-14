@@ -1,4 +1,4 @@
-# Pyhton Custom Skills Toolkit
+# Python Custom Skills Toolkit
 This repo is a collection of useful functions to be deployed as custom skills for Azure Cognitive Search. The skills can be used as **templates or starting points** for your own custom skills, or they can be deployed and used as they are if they happen to meet your requirements. For enterprise/production/corporate environments, I suggest you change the code so that it complies with the performance and security requirements of your project, or your company. 
 
 All code was written for Azure Functions in Python 3.7, to address specific projects requirements. Please read all the comments of the code to understand what was done, including limitations and restrictions. Again, adapt the code for your own requirements and needs.
@@ -39,11 +39,11 @@ Python allows you to use multiple IDEs like [Azure Notebooks](https://notebooks.
 
 My favorite IDE for this kind of project is [Visual Studio Code](https://code.visualstudio.com/) because on these key features:
 
-+ [Azure Functions extention](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
-+ [Python extention](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
-+ [REST API extention](https://marketplace.visualstudio.com/items?itemName=mkloubert.vs-rest-api)
++ [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
++ [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
++ [REST API extension](https://marketplace.visualstudio.com/items?itemName=mkloubert.vs-rest-api)
 + [Great  Tutorial](https://code.visualstudio.com/docs/languages/python)
-+ [Locally integrated features: Dvelopment, tests, and deployment to Azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code)
++ [Locally integrated features: Development, tests, and deployment to Azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code)
 
 ## Best Practices
 
@@ -54,7 +54,7 @@ Here is a list of good practices from our experience when creating this solution
 + Save time debugging locally, I suggest VS Code or Postman for the job. You just need to save the new version of your python code and the changes are effective immediately, restart is not required. 
 + In your code, use json.dumps on your output variable to validate what your skill returns to Cognitive Search. This will give you the opportunity to fix the layout in case of error.
 + For performance, prepare your code to process multiples documents in each execution, allowing you to use a batch sizes bigger than 1. Please check the loops within the provided sample code.
-+ For production enviroments, change the code to be compliant with [Azure Functions Best Practices](https://docs.microsoft.com/en-us/azure/azure-functions/functions-best-practices) and with your security requirements.
++ For production environments, change the code to be compliant with [Azure Functions Best Practices](https://docs.microsoft.com/en-us/azure/azure-functions/functions-best-practices) and with your security requirements.
 
 ## Code - The Skills
 
@@ -75,7 +75,7 @@ This code is 100% open source. Use it as you want.
 I invite you to contribute your own work by submitting a pull request.
 
 ## About Me
-My name is Rodrigo Souza and I work for Microsoft since 2017. For now my roles within the company were Data Solutions Architect, AI Instructor, and Applied Data Scientist. Nowadays I'm a Sr Data Scientist with [ACE Team](http://aka.ms/ACE-Blog). It is the AI Customer Engineering team, where I have the opportunity to work in intersting AI projects. Some key links about me:
+My name is Rodrigo Souza and I work for Microsoft since 2017. For now my roles within the company were Data Solutions Architect, AI Instructor, and Applied Data Scientist. Nowadays I'm a Sr Data Scientist with [ACE Team](http://aka.ms/ACE-Blog). It is the AI Customer Engineering team, where I can work in interesting AI projects. Some key links are:
 
 + [My LinkedIn](https://www.linkedin.com/in/rodrigossz/)
 + [My Visual CV](https://github.com/Rodrigossz/CV)
@@ -93,4 +93,4 @@ My name is Rodrigo Souza and I work for Microsoft since 2017. For now my roles w
 
 + To accelerate your Knowledge Mining Business Opportunities, click [here](https://aka.ms/kma) to know the ACE's Team Knowledge Mining Accelerator. It is a read-only demo and also an open source code so you can easily deploy your own KM solution, including a customizable interface and dataset. In other words, bring your own data and logos, to accelerate demos, POCs, MVPs, etc. The tiny URL is https://aka.ms/kmb.
 
-+ To Mine Knowledge from audio using Azure Cognitive Search and Speech to Text API, clike [here](https://github.com/Rodrigossz/KM-w-Audio).
++ To Mine Knowledge from audio using Azure Cognitive Search and Speech to Text API, click [here](https://github.com/Rodrigossz/KM-w-Audio).
