@@ -20,7 +20,7 @@ Until January 2020, you can't do this merge usint the Built In Merge Skill since
 # - The output is the "text" element within the "data" section of the json file.
 # - For production environments add all best practices, logging, and error management that you need.
 # - Letters cases are not changed.
-
+# - All JSON files are returned with the original accents. For that, we use ensure_ascii=False.
 #
 # Specific comments
 # This code concatenates 2 strings. 
@@ -74,7 +74,7 @@ def run(json_data):
                         }
                 })
                     
-    return json.dumps(results)
+    return json.dumps(results,ensure_ascii=False))
 ```
 
 ## Add this skill to your Cogntive Search Enrichment Pipeline

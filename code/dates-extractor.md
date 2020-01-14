@@ -2,6 +2,10 @@
 
 This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure Functions for Python. It extracts the first date from the input string. If you need all of the dates, or the time, change the code as you need.
 
+The Built-in [Entity Recognition cognitive skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-entity-recognition) for dates will return all dates of the document, in multiple formats, as you can see in the image below. If it is not a problem for you, you don't need to use this custom skill.
+
+![Dates](../images/dates.JPG)
+
 ## Required steps
 
 1. Follow [this](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-python) tutorial.
@@ -18,7 +22,7 @@ This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure F
 # - The output is the "text" element within the "data" section of the json file.
 # - For production environments add all best practices, logging, and error management that you need.
 # - Letters cases are not changed. But if it is important for you, you can change the code as necessary.
-
+# - All JSON files are returned with the original accents. For that, we use ensure_ascii=False.
 #
 # Specific comments
 # The output format is YYYY-MM-DD. Time is removed!!
@@ -104,7 +108,7 @@ def run(json_data):
                       }
               })
                     
-    return json.dumps(results)
+    return json.dumps(results,ensure_ascii=False))
 ```
 ## Add this skill to your Cogntive Search Enrichment Pipeline
 

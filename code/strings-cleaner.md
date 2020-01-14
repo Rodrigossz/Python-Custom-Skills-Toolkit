@@ -18,7 +18,7 @@ This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure F
 # - The output is the "text" element within the "data" section of the json file.
 # - For production environments add all best practices, logging, and error management that you need.
 # - Letters cases are not changed. But if it is important for you, you can change the code as necessary.
-
+# - All JSON files are returned with the original accents. For that, we use ensure_ascii=False.
 #
 # Specific comments
 # This code removes special characters like \t and \n from strings
