@@ -64,11 +64,12 @@ Here is a list of good practices from our experience when creating this solution
 
 Skill | When to Use
 :---:|:---
-[Dates Extractor](./code/dates-extractor.md) | Extracts dates from string. Differentiates itself from the [Entity Extraction built-in skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-entity-recognition) by generating dates in yyyy-mm-dd HH:MM:SS format. 
-[Strings Merger](./code/strings-merger.md) | Merges 2 strings. Differentiates itself from the [Text Merger built-in skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-textmerger) by allowing you to merge any 2 strings, not only the content with the OCR text extracted from images.
-[Strings Cleaner](./code/strings-cleaner.md) | Removes special characters from strings, returning a string clean of those values.
 [CSV Filter](./code/csv-filter.md) | Removes the csv file values from the input, returning a string clean of those values.
 [CSV Lookup](./code/csv-lookup.md) | Extracts the csv file values that were found in the input string, returning an array of strings.
+[Dates Extractor](./code/dates-extractor.md) | Extracts dates from string. Differentiates itself from the [Entity Extraction built-in skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-entity-recognition) by generating dates in yyyy-mm-dd HH:MM:SS format. 
+[Strings Distinct](./code/strings-distinct.md) | Removes duplicated elements from the input array. Useful when you are extracting entities or key phrases per page, and some values are present in multiple pages.
+[Strings Merger](./code/strings-merger.md) | Merges 2 strings. Differentiates itself from the [Text Merger built-in skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-textmerger) by allowing you to merge any 2 strings, not only the content with the OCR text extracted from images.
+[Strings Cleaner](./code/strings-cleaner.md) | Removes special characters from strings, returning a string clean of those values.
 
 ## C# Custom Skills from the Azure Cognitive Search Product Team 
 For "official" Azure Search click-to-deploy C# Custom skills, created by the Azure Cognitive Search Team, use the [Azure Search Power Skills repo](https://github.com/Azure-Samples/azure-search-power-skills).
