@@ -8,7 +8,7 @@ Azure Cognitive Search (formerly known as "Azure Search") is a search-as-a-servi
 
 To learn more about Azure Cognitive Search, click [here](https://docs.microsoft.com/en-us/azure/search/search-what-is-azure-search). 
 
-## What is Azure Cognitive Search Custom Skill
+## What are Azure Cognitive Search Custom Skills
 The Custom Web API skill allows you to extend AI enrichment by calling out to a Web API endpoint providing custom operations. Similar to built-in skills, a Custom Web API skill has inputs and outputs. Depending on the inputs, your Web API receives a JSON payload when the indexer runs, and outputs a JSON payload as a response, along with a success status code. The response is expected to have the outputs specified by your custom skill. Any other response is considered an error and no enrichments are performed. 
 
 To learn more about Custom Skills, click [here](https://docs.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-interface).
