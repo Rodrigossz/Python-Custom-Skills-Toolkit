@@ -8,6 +8,7 @@ This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure F
 1. Use the Python code below as your **__init__.py** file. Customize it with your storage account details, also with your csv file name and target column. As you can see below, my sample csv file target column name is **Term**. That helps the idea that this code will extract pre-defined terms from the documents content.
 1. Don't forget to add **azure.functions** to your requirements.txt file.
 1. Connect your published custom skill to your Cognitive Search Enrichment Pipeline. Plesae check the section below the code in this file. For more information, click [here](https://docs.microsoft.com/en-us/azure/search/cognitive-search-create-custom-skill-example#connect-to-your-pipeline).
+1. If you need errors and warnings management, use [this](https://docs.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-interface#web-api-custom-skill-interface) link as a reference and change the code to add it.
 
 ## Python Code
 
@@ -19,6 +20,7 @@ This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure F
 # - For production environments add all best practices, logging, and error management that you need.
 # - Letters cases are not changed. But if it is important for you, you can change the code as necessary.
 # - All JSON files are returned with the original accents. For that, we use ensure_ascii=False.
+# - Errors and warnings are not returned to the enrichment pipeline. Chage the code as you need to add this feature.
 #
 # Specific comments
 # This code removes special characters like \t and \n from strings

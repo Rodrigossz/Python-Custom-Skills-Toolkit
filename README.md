@@ -53,8 +53,12 @@ Here is a list of good practices from our experience when creating this solution
 + Always prepare your code to deal with empty result sets, the filter will remove unwanted terms, nothing is replaced.
 + Save time debugging locally, I suggest VS Code or Postman for the job. You just need to save the new version of your python code and the changes are effective immediately, restart is not required. 
 + In your code, use json.dumps on your output variable to validate what your skill returns to Cognitive Search. This will give you the opportunity to fix the layout in case of error.
++ The function **json.dumps()**, used in all skills to return the output, doesn't handle accentuation very well. To avoid strange characters and information loss, always use **ensure_ascii=False**.
 + For performance, prepare your code to process multiples documents in each execution, allowing you to use a batch sizes bigger than 1. Please check the loops within the provided sample code.
-+ For production environments, change the code to be compliant with [Azure Functions Best Practices](https://docs.microsoft.com/en-us/azure/azure-functions/functions-best-practices) and with your security requirements.
++ For production environments, change the code to be compliant with:
+  + [Azure Functions Best Practices](https://docs.microsoft.com/en-us/azure/azure-functions/functions-best-practices)
+  + [Custom Skills errors and warnings management](https://docs.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-interface#web-api-custom-skill-interface)
+  + Your environment security requirements
 
 ## Code - The Skills
 
