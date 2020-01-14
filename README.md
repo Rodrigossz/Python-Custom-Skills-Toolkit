@@ -1,4 +1,4 @@
-# Pyhton-Custom-Skills-for-Azure-Cognitive-Search
+# Pyhton Custom Skills for Azure Cognitive Search
 This repo is a collection of useful functions to be deployed as custom skills for Azure Cognitive Search. The skills can be used as **templates or starting points** for your own custom skills, or they can be deployed and used as they are if they happen to meet your requirements. For enterprise/production/corporate environments, I suggest you change the code so that it complies with the performance and security requirements of your project, or your company. 
 
 All code was written for Azure Functions in Python 3.7, to address specific projects requirements. Please read all the comments of the code to understand what was done, including limitations and restrictions. Again, adapt the code for your own requirements and needs.
