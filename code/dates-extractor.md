@@ -163,8 +163,7 @@ One string has 2 dates, the second one has only the year.
            {
              "text": "I was born in 1974"
            }
-      },      
-      
+      }
     ]
 }
 ```

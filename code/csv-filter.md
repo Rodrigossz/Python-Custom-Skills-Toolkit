@@ -155,8 +155,7 @@ One string has 2 dates, the second one has only the year.
            {
              "text": "I live in the United States of America"
            }
-      },      
-      
+      }
     ]
 }
 ```
