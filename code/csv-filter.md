@@ -94,7 +94,7 @@ def run(json_data):
                       }
               })
                     
-    return json.dumps(results,ensure_ascii=False))
+    return json.dumps(results,ensure_ascii=False)
 ```
 
 ## Add this skill to your Cogntive Search Enrichment Pipeline
