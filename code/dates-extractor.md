@@ -12,7 +12,10 @@ The Built-in [Entity Recognition cognitive skill](https://docs.microsoft.com/en-
 1. Use the Python code below as your **__init__.py** file. Customize it with your storage account details, also with your csv file name and target column. As you can see below, my sample csv file target column name is **Term**. That helps the idea that this code will extract pre-defined terms from the documents content.
 1. Don't forget to add **azure.functions** and **datefinder** to your requirements.txt file.
 1. Connect your published custom skill to your Cognitive Search Enrichment Pipeline. Plesae check the section below the code in this file. For more information, click [here](https://docs.microsoft.com/en-us/azure/search/cognitive-search-create-custom-skill-example#connect-to-your-pipeline).
-1. If you need errors and warnings management, use [this](https://docs.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-interface#web-api-custom-skill-interface) link as a reference and change the code to add it.
+
+## Errors and Warnings
+
+If you need errors and warnings management, use [this](https://docs.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-python) link as a reference and change the code to add it.
 
 ## Python Code
 

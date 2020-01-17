@@ -60,6 +60,10 @@ Here is a list of good practices from our experience when creating this solution
   + [Custom Skills errors and warnings management](https://docs.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-interface#web-api-custom-skill-interface)
   + Your environment security requirements
 
+## Errors and Warnings
+
+If you need errors and warnings management, use [this](https://docs.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-python) link as a reference and change the code to add it. This best practice will be added to the skills code in the future, no ETA for now. PRs are welcome!
+
 ## Code - The Skills
 
 Skill | When to Use
