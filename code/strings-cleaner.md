@@ -137,8 +137,7 @@ One string has special characters, the other one has accents.
            {
              "text": "Nação Rubro Negra"
            }
-      },      
-      
+      }
     ]
 }
 ```
