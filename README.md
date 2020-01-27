@@ -58,7 +58,8 @@ Here is a list of good practices from our experience when creating this solution
 + For production environments, change the code to be compliant with:
   + [Azure Functions Best Practices](https://docs.microsoft.com/en-us/azure/azure-functions/functions-best-practices)
   + [Custom Skills errors and warnings management](https://docs.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-interface#web-api-custom-skill-interface)
-  + Your environment security requirements
+  + Your environment security requirements.
+  + [This](https://towardsdatascience.com/30-python-best-practices-tips-and-tricks-caefb9f8c5f5) Python Best Practices.
 
 ## Errors and Warnings
 
