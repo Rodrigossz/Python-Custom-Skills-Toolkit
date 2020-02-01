@@ -13,11 +13,9 @@ The Built-in [Entity Recognition cognitive skill](https://docs.microsoft.com/en-
 1. Don't forget to add **azure.functions** and **datefinder** to your requirements.txt file.
 1. Connect your published custom skill to your Cognitive Search Enrichment Pipeline. Plesae check the section below the code in this file. For more information, click [here](https://docs.microsoft.com/en-us/azure/search/cognitive-search-create-custom-skill-example#connect-to-your-pipeline).
 
-## Errors and Warnings
-
-If you need errors and warnings management, use [this](https://docs.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-python) link as a reference and change the code to add it.
-
 ## Python Code
+
+The Python code for this skill is [here](./__init__.py). 
 
 ```python
 # Header - Standard for all skills:
@@ -148,7 +146,9 @@ Your skillset will have this extra section below.
 
 ## Sample Input
 
-One string has 2 dates, the second one has only the year.
+Use the JSON input below to test your function. Get familiar with the code behavior in the different situations. 
+
+The test is a tribute to the most popular football club in the world, [Flamengo](https://en.wikipedia.org/wiki/Clube_de_Regatas_do_Flamengo), from Rio de Janeiro. It was founded in 1895 and has over 45 million fans in Brazil alone. The team was [champion](https://www.youtube.com/watch?time_continue=11&v=371FOyquzno) in its two most important matches of 2019, the Brazilian championship and the Copa Libertadores of America.
 
 ```json
 {
@@ -157,40 +157,48 @@ One string has 2 dates, the second one has only the year.
         "recordId": "0",
         "data":
            {
-             "text": "On November 5th 2017 I was hired by Microsoft. Today is 1/13/2020 and I am still working for the company"
+            "text": ["Flamengo was founded on November 15th 1895"]
            }
-      },
-      {
+      } ,
+        {
         "recordId": "1",
         "data":
            {
-             "text": "I was born in 1974"
+            "text": [""]
            }
-      }
+      } ,    
+      {
+        "recordId": "2",
+        "data":
+           {
+            "text": ["Flamengo campeão de tudo em 2019!"]
+           }
+      } 
     ]
 }
+
 ```
 
-## Sample Output
-
-From the first string, one date is returned. From the second, there is no month or day, so today's info is used.
+## Expected Output
 
 ```json
 {
-    "values": [
-        {
-            "recordId": "0",
-            "data": {
-                "text": "2017-11-05"
-            }
-        },
-        {
-            "recordId": "1",
-            "data": {
-                "text": "1974-01-13"
-            }
+    "values": [{
+        "recordId": "0",
+        "data": {
+            "text": "1895-11-15"
         }
-    ]
+    }, {
+        "recordId": "1",
+        "errors": [{
+            "message": "Could not complete operation for record."
+        }]
+    }, {
+        "recordId": "2",
+        "data": {
+            "text": "2019-01-31"
+        }
+    }]
 }
 ```
 

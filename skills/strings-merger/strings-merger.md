@@ -11,78 +11,11 @@ Until January 2020, you can't do this merge usint the Built In Merge Skill since
 1. Don't forget to add **azure.functions** to your requirements.txt file.
 1. Connect your published custom skill to your Cognitive Search Enrichment Pipeline. Plesae check the section below the code in this file. For more information, click [here](https://docs.microsoft.com/en-us/azure/search/cognitive-search-create-custom-skill-example#connect-to-your-pipeline).
 
-## Errors and Warnings
-
-If you need errors and warnings management, use [this](https://docs.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-python) link as a reference and change the code to add it.
-
 ## Python Code
 
-```python
-# Header - Standard for all skills:
-# - Author: Rodrigo Souza - https://www.linkedin.com/in/rodrigossz/
-# - This code is an Azure Cognitive Search Python Custom Skill.
-# - The output is the "text" element within the "data" section of the json file.
-# - For production environments add all best practices, logging, and error management that you need.
-# - Letters cases are not changed.
-# - All JSON files are returned with the original accents. For that, we use ensure_ascii=False.
-# - Errors and warnings are not returned to the enrichment pipeline. Chage the code as you need to add this feature.
-#
-# Specific comments
-# This code concatenates 2 strings. 
-# I Use white spaces to don't concatenatr words without a separation.
+The Python code for this skill is [here](./__init__.py). 
 
-import logging
-import azure.functions as func
-import re
-import json
-
-def main(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info('Python HTTP trigger function processed a request.')
-
-    try:
-        body = json.dumps(req.get_json())
-    except ValueError:
-        pass
-
-    if body:
-        return func.HttpResponse(run(body), mimetype="application/json")
-    else:
-        return func.HttpResponse(
-             "Invalid Body.",
-             status_code=555
-        )
-
-
-def run(json_data):
-    
-    values = json.loads(json_data)['values']
-    results = {}
-    results["values"] = []
-
-    for value in values:
-        
-        # Testing for empty strings - Customize as you want. Returning white spaces
-        if (not string1):
-            string1 = ' '
-
-        if (not string2):
-            string2 = ' '
-       
-        # merging, with white spaces addiction
-        mergedStrings = " "+ string1 + " "+ string2 + " "
-        recordId = value['recordId']
-        results["values"].append(
-                {
-                "recordId": recordId,
-                "data": {
-                    "text": mergedStrings
-                        }
-                })
-                    
-    return json.dumps(results,ensure_ascii=False)
-```
-
-## Add this skill to your Cogntive Search Enrichment Pipeline
+## Add this skill to your Azure Cogntive Search Enrichment Pipeline
 
 Your skillset will have this extra section below.
 
@@ -119,6 +52,10 @@ Your skillset will have this extra section below.
 
 ## Sample Input
 
+Use the JSON input below to test your function. Get familiar with the code behavior in the different situations. 
+
+This test text is a tribute to the most popular football club in the world, [Flamengo](https://en.wikipedia.org/wiki/Clube_de_Regatas_do_Flamengo), from Rio de Janeiro. It was founded in 1895 and has over 45 million fans in Brazil alone. The team was [champion](https://www.youtube.com/watch?time_continue=11&v=371FOyquzno) in its two most important matches of 2019, the Brazilian championship and the Copa Libertadores of America.
+
 ```json
 {
     "values": [
@@ -135,32 +72,43 @@ Your skillset will have this extra section below.
         "recordId": "1",
         "data":
            {
-            "string1": "Flamengo_Libertadores_2019.jpg",
-            "string2": "Champion"
+            "string1": "Flamengo_Libertadores_2019.jpg"
             }
-      }
+      },
+        {
+        "recordId": "2",
+        "data":
+           {
+            "string1": "Flamengo_Libertadores_2019.jpg",
+            "string2": "",
+
+            }
+        },
     ]
 }
 ```
 
-## Sample Output
+## Expected Output
 
 ```json
 {
-    "values": [
-        {
-            "recordId": "0",
-            "data": {
-                "terms": " Flamengo is the new champion "
-            }
-        },
-        {
-            "recordId": "1",
-            "data": {
-                "terms": " Flamengo Libertadores 2019 jpg Champion "
-            }
+    "values": [{
+        "recordId": "0",
+        "data": {
+            "text": "Flamengo is the new champion"
         }
-    ]
+    }, {
+        "recordId": "1",
+        "data": "{}",
+        "errors": [{
+            "message": "Error:\'string2\' field is required in \'data\' object."
+        }]
+    }, {
+        "recordId": "2",
+        "data": {
+            "text": "Flamengo_Libertadores_2019.jpg "
+        }
+    }]
 }
 ```
 

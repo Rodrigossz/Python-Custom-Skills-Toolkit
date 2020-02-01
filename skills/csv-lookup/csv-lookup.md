@@ -9,11 +9,9 @@ This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure F
 1. Don't forget to add **azure.functions** to your requirements.txt file.
 1. Connect your published custom skill to your Cognitive Search Enrichment Pipeline. Plesae check the section below the code in this file. For more information, click [here](https://docs.microsoft.com/en-us/azure/search/cognitive-search-create-custom-skill-example#connect-to-your-pipeline).
 
-## Errors and Warnings
-
-If you need errors and warnings management, use [this](https://docs.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-python) link as a reference and change the code to add it.
-
 ## Python Code
+
+The Python code for this skill is [here](./__init__.py). 
 
 ```python
 # Header - Standard for all skills:
@@ -112,20 +110,11 @@ def run(json_data):
 
 ## Add this skill to your Cogntive Search Enrichment Pipeline
 
-Let's say that your terms are some countrires of the word. You CSV will have the structure below:
-
-Brazil
-Argentina
-Canadá
-United States
-
-One country and one column per line, no commas. You skillset will have something like:
-
 ```json
  {
             "@odata.type": "#Microsoft.Skills.Custom.WebApiSkill",
             "name": "csv-lookup",
-            "description": "Find the Countries I care about",
+            "description": "Find the clubs I care about",
             "context": "/document",
             "uri": "your-Pyhton-Azure-Functions-published-URL",
             "httpMethod": "POST",
@@ -141,7 +130,7 @@ One country and one column per line, no commas. You skillset will have something
         "outputs": [
           {
             "name": "text",
-            "targetName": "countries"
+            "targetName": "clubs"
           }
             ],
             "httpHeaders": {}
@@ -150,7 +139,21 @@ One country and one column per line, no commas. You skillset will have something
 
 ## Sample Input
 
-One string has 2 dates, the second one has only the year.
+Use the JSON input below to test your function. Get familiar with the code behavior in the different situations. 
+
+The test is a tribute to the most popular football club in the world, [Flamengo](https://en.wikipedia.org/wiki/Clube_de_Regatas_do_Flamengo), from Rio de Janeiro. It was founded in 1895 and has over 45 million fans in Brazil alone. The team was [champion](https://www.youtube.com/watch?time_continue=11&v=371FOyquzno) in its two most important matches of 2019, the Brazilian championship and the Copa Libertadores of America.
+
+The sample csv has a small list of the biggest football clubs in the world:
+
+```csv
+FLAMENGO
+BARCELONA
+REAL MADRID
+MANCHESTER UNITED
+LIVERPOOL
+MILAN
+JUVENTUS
+```
 
 ```json
 {
@@ -159,40 +162,51 @@ One string has 2 dates, the second one has only the year.
         "recordId": "0",
         "data":
            {
-             "text": "Brazil is bigger than the US if you don't count on Alaska. Argentina is not that big."
+             "text": "Flamengo is the new champion"
            }
       },
+        
       {
         "recordId": "1",
         "data":
            {
-             "text": "I live in the United States of America"
-           }
-      }
+            "text": "Flamengo beat Liverpool in the 1981 World Cup final."
+            }
+      },
+        {
+        "recordId": "2",
+        "data":
+           {
+            "text": ""
+
+            }
+        },
+
+
     ]
 }
 ```
 
-## Sample Output
-
-From the first string, two countries are returned. US is not one of the lines of the file. Only exact matches are returned. 
+## Expected Output
 
 ```json
 {
-    "values": [
-        {
-            "recordId": "0",
-            "data": {
-                "text": ["Brazil", "Argentina"]
-            }
-        },
-        {
-            "recordId": "1",
-            "data": {
-                "text": ["United States"]
-            }
+    "values": [{
+        "recordId": "0",
+        "data": {
+            "text": ["FLAMENGO"]
         }
-    ]
+    }, {
+        "recordId": "1",
+        "data": {
+            "text": ["FLAMENGO", "LIVERPOOL"]
+        }
+    }, {
+        "recordId": "2",
+        "data": {
+            "text": []
+        }
+    }]
 }
 ```
 
