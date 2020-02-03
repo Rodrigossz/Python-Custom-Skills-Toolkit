@@ -83,7 +83,7 @@ def transform_value(value,myList):
         return (
             {
             "recordId": recordId,
-            "data":'{}',
+            "data":{},
             "errors": [ { "message": "Error:" + error.args[0] }   ]
             })
 
