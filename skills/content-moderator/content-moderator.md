@@ -1,31 +1,26 @@
-# Azure Cognitive Search Python Custom Skill For Dates Extraction
+# Azure Cognitive Search Python Custom Skill For CSV Filtering
 
-This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure Functions for Python. It extracts the first date from the input string. If you need all of the dates, or the time, change the code as you need.
-
-The Built-in [Entity Recognition cognitive skill](https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-entity-recognition) for dates will return all dates of the document, in multiple formats, as you can see in the image below. If it is not a problem for you, you don't need to use this custom skill.
-
-![Dates](../images/dates.JPG)
+This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure Functions for Python. Using the [Content Moderator API](https://azure.microsoft.com/en-us/services/cognitive-services/content-moderator/), It detects PII (Personal Identifiable Information) in the input string. The output is True or False, and you can use a Boolean field in Azure Cognitive Search Index.
 
 ## Required steps
 
 1. Follow [this](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-python) tutorial.
+1. Create one instance of the Content Moderator API in the [Azure Portal](https://ms.portal.azure.com/). You will need to add the access key to the py file of the step below.
 1. Use the Python code below as your **__init__.py** file. Customize it with your storage account details, also with your csv file name and target column. As you can see below, my sample csv file target column name is **Term**. That helps the idea that this code will extract pre-defined terms from the documents content.
-1. Don't forget to add **azure.functions** and **datefinder** to your requirements.txt file.
+1. Don't forget to add **azure.functions** to your requirements.txt file.
 1. Connect your published custom skill to your Cognitive Search Enrichment Pipeline. Plesae check the section below the code in this file. For more information, click [here](https://docs.microsoft.com/en-us/azure/search/cognitive-search-create-custom-skill-example#connect-to-your-pipeline).
 
 ## Python Code
 
-The Python code for this skill is [here](./__init__.py). 
+The Python code for this skill is [here](./__init__.py). Please take a minute to read all comments witin the code, where many details and contraints are detailed.
 
 ## Add this skill to your Cogntive Search Enrichment Pipeline
-
-Your skillset will have this extra section below.
 
 ```json
  {
             "@odata.type": "#Microsoft.Skills.Custom.WebApiSkill",
-            "name": "First Date",
-            "description": "Get the first date detected in a string",
+            "name": "content-moderator",
+            "description": "Detecting PII",
             "context": "/document",
             "uri": "your-Pyhton-Azure-Functions-published-URL",
             "httpMethod": "POST",
@@ -41,7 +36,7 @@ Your skillset will have this extra section below.
         "outputs": [
           {
             "name": "text",
-            "targetName": "date"
+            "targetName": "needsModeration"
           }
             ],
             "httpHeaders": {}
@@ -61,26 +56,25 @@ The test is a tribute to the most popular football club in the world, [Flamengo]
         "recordId": "0",
         "data":
            {
-            "text": ["Flamengo was founded on November 15th 1895"]
+            "text": ["Flamengo phone numer is 206-999-1981. The email address is contato@flamengo.com ."]
            }
       } ,
         {
         "recordId": "1",
         "data":
            {
-            "text": [""]
+            "text": ["Flamengo is the new champion!!"]
            }
-      } ,    
-      {
+      } ,
+    {
         "recordId": "2",
         "data":
            {
-            "text": ["Flamengo campeão de tudo em 2019!"]
+            "text": []
            }
       } 
     ]
 }
-
 ```
 
 ## Expected Output
@@ -90,17 +84,17 @@ The test is a tribute to the most popular football club in the world, [Flamengo]
     "values": [{
         "recordId": "0",
         "data": {
-            "text": "1895-11-15"
+            "text": "True"
         }
     }, {
         "recordId": "1",
-        "errors": [{
-            "message": "Could not complete operation for record."
-        }]
+        "data": {
+            "text": "False"
+        }
     }, {
         "recordId": "2",
         "data": {
-            "text": "2019-01-31"
+            "text": "False"
         }
     }]
 }

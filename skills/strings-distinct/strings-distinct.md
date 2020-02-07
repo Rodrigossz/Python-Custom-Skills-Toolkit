@@ -19,6 +19,37 @@ It is specially useful when you are processing per page and the same entities or
 
 The Python code for this skill is [here](./__init__.py). 
 
+## Add this skill to your Azure Cogntive Search Enrichment Pipeline
+
+Your skillset will have this extra section below.
+
+```json
+ {
+            "@odata.type": "#Microsoft.Skills.Custom.WebApiSkill",
+            "name": "Duplicates Removal",
+            "description": "EX: To remove duplicates from organizations detected with Entity Extraction processing per page, but saving all of the organizations in /document/organizations.",
+            "context": "/document",
+            "uri": "your-Pyhton-Azure-Functions-published-URL",
+            "httpMethod": "POST",
+            "timeout": "PT30S",
+            "batchSize": 1,
+            "degreeOfParallelism": null,
+            "inputs": [
+             {
+               "name": "text",
+               "source": "/document/organizations"
+             }
+                   ],
+        "outputs": [
+          {
+            "name": "text",
+            "targetName": "noDuplicatedOrganizations"
+          }
+            ],
+            "httpHeaders": {}
+           }
+```
+
 ## Sample Input
 
 Use the JSON input below to test your function. Get familiar with the code behavior in the different situations. 

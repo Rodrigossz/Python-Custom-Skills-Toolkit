@@ -13,6 +13,36 @@ This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure F
 
 The Python code for this skill is [here](./__init__.py). 
 
+## Add this skill to your Azure Cogntive Search Enrichment Pipeline
+
+Your skillset will have this extra section below.
+
+```json
+ {
+            "@odata.type": "#Microsoft.Skills.Custom.WebApiSkill",
+            "name": "Strings Cleaner",
+            "description": "Cleans special characters",
+            "context": "/document",
+            "uri": "your-Pyhton-Azure-Functions-published-URL",
+            "httpMethod": "POST",
+            "timeout": "PT30S",
+            "batchSize": 1,
+            "degreeOfParallelism": null,
+            "inputs": [
+             {
+               "name": "text",
+               "source": "/document/content"
+             }
+                   ],
+        "outputs": [
+          {
+            "name": "text",
+            "targetName": "cleanedText"
+          }
+            ],
+            "httpHeaders": {}
+           }
+```
 ## Sample Input
 
 Use the JSON input below to test your function. Get familiar with the code behavior in the different situations. 
