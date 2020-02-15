@@ -73,7 +73,7 @@ If you need errors and warnings management, use [this](https://docs.microsoft.co
 
 Skill | When to Use
 :---:|:---
-[Bing Entity Search](./skills//bing-search/bing-search.md) | Gets Wikipedia descriptoins using the [Bing Entity Search API](https://docs.microsoft.com/en-us/rest/api/cognitiveservices-bingsearch/bing-entities-api-v7-reference).
+[Bing Entity Search](./skills//bing-search/bing-search.md) | Gets Wikipedia descriptoins using the [Bing Entity Search API](https://docs.microsoft.com/en-us/rest/api/cognitiveservices-bingsearch/bing-entities-api-v7-reference). As an example, url extraction was implemented.
 [CSV Filter](./skills/csv-filter/csv-filter.md) | Removes the csv file values from the input, returning a string clean of those values.
 [CSV Lookup](./skills//csv-lookup/csv-lookup.md) | Extracts the csv file values that were found in the input string, returning an array of strings.
 [Content Moderator](./skills//content-moderator/content-moderator.md) | Detects PII in the input string using the [Content Moderator API](https://azure.microsoft.com/en-us/services/cognitive-services/content-moderator/).
