@@ -2,6 +2,8 @@
 
 This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure Functions for Python. Using the [Bing Search API](https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/), this skill will accept locations, public figures, and organizations, and will return Wikipedia descriptions for them.
 
+This code implements url extraction. Change as you need!!
+
 ## Required steps
 
 1. Follow [this](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-python) tutorial.
