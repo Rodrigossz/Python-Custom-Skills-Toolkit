@@ -1,6 +1,6 @@
-# Azure Cognitive Search Python Custom Skill For Content Moderation
+# Azure Cognitive Search Python Custom Skill For CosmosDb Integration (Upsert)
 
-This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure Functions for Python. Using the [Content Moderator API](https://azure.microsoft.com/en-us/services/cognitive-services/content-moderator/), It detects PII (Personal Identifiable Information) in the input string. The output is True or False, and you can use a Boolean field in Azure Cognitive Search Index.
+This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure Functions for Python. Using the [CosmosDb Library](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2?tabs=python), It inserts the input data as elements into a CosmosDb collection.
 
 ## Required steps
 
@@ -16,11 +16,13 @@ The Python code for this skill is [here](./__init__.py). Please take a minute to
 
 ## Add this skill to your Cogntive Search Enrichment Pipeline
 
+Let's assume that organizations were extracted with the Entity Extraction Built-In skill.
+
 ```json
  {
             "@odata.type": "#Microsoft.Skills.Custom.WebApiSkill",
-            "name": "content-moderator",
-            "description": "Detecting PII",
+            "name": "cosmosdb-writer",
+            "description": "write the data into a CosmosDb Collection",
             "context": "/document",
             "uri": "your-Pyhton-Azure-Functions-published-URL",
             "httpMethod": "POST",
@@ -30,13 +32,13 @@ The Python code for this skill is [here](./__init__.py). Please take a minute to
             "inputs": [
              {
                "name": "text",
-               "source": "/document/content"
+               "source": "/document/organizations"
              }
                    ],
         "outputs": [
           {
             "name": "text",
-            "targetName": "needsModeration"
+            "targetName": "insertResultStatus"
           }
             ],
             "httpHeaders": {}
@@ -56,21 +58,21 @@ The test is a tribute to the most popular football club in the world, [Flamengo]
         "recordId": "0",
         "data":
            {
-            "text": ["Flamengo phone numer is 206-999-1981. The email address is contato@flamengo.com ."]
+            "text": ["FLAMENGO","VASCO","FLAMENGO","FLUMINENSE","FLAMENGO"]
            }
       } ,
         {
         "recordId": "1",
         "data":
            {
-            "text": ["Flamengo is the new champion!!"]
+            "text": [""]
            }
-      } ,
-    {
+      } ,    
+      {
         "recordId": "2",
         "data":
            {
-            "text": []
+            "text": ["FLAMENGO","Flamengo","flamengo","FLAMENGO"]
            }
       } 
     ]
@@ -79,22 +81,24 @@ The test is a tribute to the most popular football club in the world, [Flamengo]
 
 ## Expected Output
 
+Empty string will be inserted as blank.
+
 ```json
 {
     "values": [{
         "recordId": "0",
         "data": {
-            "text": "True"
+            "text": "OK"
         }
     }, {
         "recordId": "1",
         "data": {
-            "text": "False"
+            "text": "OK"
         }
     }, {
         "recordId": "2",
         "data": {
-            "text": "False"
+            "text": "OK"
         }
     }]
 }
