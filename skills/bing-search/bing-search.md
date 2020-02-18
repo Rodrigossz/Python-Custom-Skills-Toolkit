@@ -1,4 +1,4 @@
-# Azure Cognitive Search Python Custom Skill For CSV Filtering
+# Azure Cognitive Search Python Custom Skill For URL Extraction using Bing Search API
 
 This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure Functions for Python. Using the [Bing Search API](https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/), this skill will accept locations, public figures, and organizations, and will return Wikipedia descriptions for them.
 
