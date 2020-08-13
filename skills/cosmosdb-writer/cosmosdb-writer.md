@@ -1,6 +1,6 @@
-# Azure Cognitive Search Python Custom Skill For CosmosDb Integration (Upsert)
+# Azure Cognitive Search Python Custom Skill For Cosmos DB Integration (Upsert)
 
-This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure Functions for Python. Using the [CosmosDb Library](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2?tabs=python), It inserts the input data as elements into a CosmosDb collection.
+This code is a Python Custom Skill, for Azure Cognitive Search, based on Azure Functions for Python. Using the [Cosmos DB Library](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2?tabs=python), It inserts the input data as elements into a Cosmos DB collection.
 
 ## Required steps
 
@@ -22,7 +22,7 @@ Let's assume that organizations were extracted with the Entity Extraction Built-
  {
             "@odata.type": "#Microsoft.Skills.Custom.WebApiSkill",
             "name": "cosmosdb-writer",
-            "description": "write the data into a CosmosDb Collection",
+            "description": "write the data into a Cosmos DB Collection",
             "context": "/document",
             "uri": "your-Pyhton-Azure-Functions-published-URL",
             "httpMethod": "POST",
