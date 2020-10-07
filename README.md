@@ -6,7 +6,7 @@ All code was written for Azure Functions in Python 3.7, to address specific proj
 
 ## Important notice
 
-This content is offered as is. As I switched to the Azure Cosmos DB team, there is no maintenance after February 2020. Your collaboration is welcome! Make a Pull Request that I'll evaluate and publish if it's correct.
+This content is offered as is. As I switched to the Azure Cosmos DB team, there is no maintenance after February 2020. But your collaboration is welcome! Make a Pull Request that I'll evaluate and publish if it's correct.
 
 ## What is Azure Cognitive Search
 
