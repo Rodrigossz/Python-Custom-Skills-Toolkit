@@ -4,6 +4,10 @@ This repo is a collection of useful functions to be deployed as custom skills fo
 
 All code was written for Azure Functions in Python 3.7, to address specific projects requirements. Please read all the comments of the code to understand what was done, including limitations and restrictions. Again, adapt the code for your own requirements and needs.
 
+## Important notice
+
+This content is offered as is. As I switched to the Azure Cosmos DB team, there is no maintenance after February 2020. Your collaboration is welcome! Make a Pull Request that I'll evaluate and publish if it's correct.
+
 ## What is Azure Cognitive Search
 
 Azure Cognitive Search (formerly known as "Azure Search") is a search-as-a-service cloud solution that gives developers APIs and tools for adding a rich search experience over private, heterogeneous content in web, mobile, and enterprise applications. Your code or a tool invokes data ingestion (indexing) to create and load an index. Optionally, you can add cognitive skills to apply AI processes during indexing. Doing so can add new information and structures useful for search and other scenarios.
